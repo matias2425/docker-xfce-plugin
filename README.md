@@ -22,12 +22,6 @@ Monitor and manage all your Docker containers directly from your taskbar — wit
 
 ---
 
-## 📸 Screenshots
-
-> *Dashboard showing running and stopped containers with action buttons and URL badges.*
-
----
-
 ## 🗂️ Project Structure
 
 ```
