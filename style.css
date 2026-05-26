@@ -1,0 +1,187 @@
+/* Premium GTK3 CSS Stylesheet for Docker Panel Dashboard */
+
+window {
+    background-color: rgba(30, 30, 46, 0.94);
+    color: #cdd6f4;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+}
+
+/* Header bar styling */
+.header-box {
+    background: linear-gradient(135deg, rgba(53, 187, 240, 0.15) 0%, rgba(3, 105, 161, 0.15) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 16px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+
+.header-title {
+    font-weight: bold;
+    font-size: 14pt;
+    color: #35bbf0;
+}
+
+.header-subtitle {
+    font-size: 9pt;
+    color: #a6adc8;
+}
+
+/* Search bar styling */
+.search-entry {
+    background-color: rgba(17, 17, 27, 0.6);
+    color: #cdd6f4;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin: 8px 12px;
+}
+
+.search-entry:focus {
+    border: 1px solid #35bbf0;
+    box-shadow: 0 0 4px rgba(53, 187, 240, 0.4);
+}
+
+/* Scroll area */
+.scroll-viewport {
+    background-color: transparent;
+}
+
+.containers-list {
+    padding: 8px 12px;
+}
+
+/* Individual container row */
+.container-row {
+    background-color: rgba(49, 50, 68, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.container-row:hover {
+    background-color: rgba(49, 50, 68, 0.7);
+    border-color: rgba(53, 187, 240, 0.4);
+}
+
+.container-name {
+    font-weight: bold;
+    font-size: 11pt;
+    color: #f5e0dc;
+}
+
+.container-image {
+    font-size: 8.5pt;
+    color: #89b4fa;
+}
+
+.container-status {
+    font-size: 8.5pt;
+    color: #a6adc8;
+}
+
+/* Status indicator badge */
+.badge {
+    font-size: 8pt;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+.badge-running {
+    background-color: rgba(166, 227, 161, 0.15);
+    color: #a6e3a1;
+    border: 1px solid rgba(166, 227, 161, 0.3);
+}
+
+.badge-stopped {
+    background-color: rgba(243, 139, 168, 0.15);
+    color: #f38ba8;
+    border: 1px solid rgba(243, 139, 168, 0.3);
+}
+
+/* Action button styling */
+.btn-action {
+    background-color: rgba(49, 50, 68, 0.6);
+    color: #cdd6f4;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-weight: bold;
+    transition: all 0.15s ease;
+}
+
+.btn-action:hover {
+    background-color: #35bbf0;
+    color: #11111b;
+    border-color: #35bbf0;
+}
+
+.btn-start:hover {
+    background-color: #a6e3a1;
+    color: #11111b;
+    border-color: #a6e3a1;
+}
+
+.btn-stop:hover {
+    background-color: #f38ba8;
+    color: #11111b;
+    border-color: #f38ba8;
+}
+
+.btn-restart:hover {
+    background-color: #f9e2af;
+    color: #11111b;
+    border-color: #f9e2af;
+}
+
+/* Port url badge */
+.port-badge {
+    background-color: rgba(137, 180, 250, 0.12);
+    color: #89b4fa;
+    border: 1px solid rgba(137, 180, 250, 0.25);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 8pt;
+    font-family: monospace;
+}
+
+/* Logs panel */
+.logs-expander {
+    margin-top: 4px;
+    padding: 0px 4px;
+    font-size: 9pt;
+}
+
+.logs-text {
+    font-family: monospace;
+    font-size: 8.5pt;
+    background-color: #11111b;
+    color: #a6e3a1;
+    border-radius: 6px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Utility footer info */
+.footer-box {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 8px 16px;
+    font-size: 8pt;
+    color: #6c7086;
+}
+
+.footer-btn {
+    background: transparent;
+    border: none;
+    color: #89b4fa;
+    font-size: 8.5pt;
+    padding: 2px 6px;
+}
+
+.footer-btn:hover {
+    color: #35bbf0;
+    text-decoration: underline;
+}
