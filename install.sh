@@ -19,64 +19,64 @@ echo -e "      🐳 Docker XFCE Panel Plugin Installer"
 echo -e "========================================================${NC}\n"
 
 # 1. Check if xfce4-genmon-plugin is installed
-echo -e "${CYAN}[1/4] Verificando xfce4-genmon-plugin...${NC}"
+echo -e "${CYAN}[1/4] Checking xfce4-genmon-plugin...${NC}"
 if pacman -Qs xfce4-genmon-plugin >/dev/null 2>&1; then
-    echo -e "  ${GREEN}✓ xfce4-genmon-plugin ya está instalado.${NC}"
+    echo -e "  ${GREEN}✓ xfce4-genmon-plugin is already installed.${NC}"
 else
-    echo -e "  ${YELLOW}⚠ xfce4-genmon-plugin no se encuentra instalado.${NC}"
-    echo -e "  Intentando instalar con pacman..."
+    echo -e "  ${YELLOW}⚠ xfce4-genmon-plugin is not installed.${NC}"
+    echo -e "  Trying to install with pacman..."
     sudo pacman -S --needed --noconfirm xfce4-genmon-plugin
     if [ $? -eq 0 ]; then
-        echo -e "  ${GREEN}✓ xfce4-genmon-plugin instalado correctamente.${NC}"
+        echo -e "  ${GREEN}✓ xfce4-genmon-plugin installed successfully.${NC}"
     else
-        echo -e "  ${RED}✗ No se pudo instalar xfce4-genmon-plugin automáticamente.${NC}"
-        echo -e "    Por favor, instálalo manualmente ejecutando: ${BOLD}sudo pacman -S xfce4-genmon-plugin${NC}"
+        echo -e "  ${RED}✗ Could not install xfce4-genmon-plugin automatically.${NC}"
+        echo -e "    Please install it manually by running: ${BOLD}sudo pacman -S xfce4-genmon-plugin${NC}"
         exit 1
     fi
 fi
 echo ""
 
 # 2. Check Docker access
-echo -e "${CYAN}[2/4] Verificando acceso a Docker...${NC}"
+echo -e "${CYAN}[2/4] Checking Docker access...${NC}"
 if docker ps >/dev/null 2>&1; then
-    echo -e "  ${GREEN}✓ Conexión exitosa al demonio de Docker.${NC}"
+    echo -e "  ${GREEN}✓ Successfully connected to the Docker daemon.${NC}"
 else
-    echo -e "  ${RED}✗ No se puede acceder al socket de Docker.${NC}"
-    echo -e "    ¿Está corriendo el servicio de Docker? (systemctl start docker)"
-    echo -e "    ¿Tu usuario pertenece al grupo 'docker'?"
-    echo -e "    Para añadir tu usuario al grupo docker ejecuta:"
+    echo -e "  ${RED}✗ Cannot access the Docker socket.${NC}"
+    echo -e "    Is the Docker service running? (systemctl start docker)"
+    echo -e "    Does your user belong to the 'docker' group?"
+    echo -e "    To add your user to the docker group, run:"
     echo -e "      ${BOLD}sudo usermod -aG docker \$USER${NC}"
-    echo -e "    y luego reinicia tu sesión."
-    echo -e "    ${YELLOW}Continuando con la instalación de todas formas...${NC}"
+    echo -e "    and then restart your session."
+    echo -e "    ${YELLOW}Continuing with the installation anyway...${NC}"
 fi
 echo ""
 
 # 3. Configure file permissions
-echo -e "${CYAN}[3/4] Configurando permisos de ejecución...${NC}"
+echo -e "${CYAN}[3/4] Setting execution permissions...${NC}"
 chmod +x docker_genmon.sh docker_menu.py
-echo -e "  ${GREEN}✓ docker_genmon.sh y docker_menu.py configurados como ejecutables.${NC}"
+echo -e "  ${GREEN}✓ docker_genmon.sh and docker_menu.py set as executable.${NC}"
 echo ""
 
 # 4. Instructions for XFCE Panel
 echo -e "${BLUE}${BOLD}========================================================"
-echo -e "      ⚙️ PASOS PARA INTEGRAR EN EL PANEL DE XFCE"
+echo -e "      ⚙️  STEPS TO ADD THE PLUGIN TO THE XFCE PANEL"
 echo -e "========================================================${NC}"
-echo -e "Para añadir el plugin a tu panel superior, sigue estos pasos:"
-echo -e "  1. Haz clic derecho en una zona vacía de tu panel de XFCE."
-echo -e "  2. Selecciona ${BOLD}Panel -> Añadir nuevos elementos...${NC}"
-echo -e "  3. Busca ${CYAN}Generic Monitor${NC} (Monitor genérico) y haz clic en ${BOLD}Añadir${NC}."
-echo -e "  4. Haz clic derecho sobre el nuevo plugin en tu panel y selecciona ${BOLD}Propiedades${NC}."
-echo -e "  5. Configura los siguientes campos:"
-echo -e "     • ${BOLD}Comando:${NC} $(pwd)/docker_genmon.sh"
-echo -e "     • ${BOLD}Período (s):${NC} 10"
-echo -e "     • ${BOLD}Etiqueta:${NC} Desmarcar / Desactivar (para mostrar solo el icono)"
-echo -e "  6. Haz clic en ${BOLD}Cerrar${NC}."
+echo -e "To add the plugin to your panel, follow these steps:"
+echo -e "  1. Right-click on an empty area of your XFCE panel."
+echo -e "  2. Select ${BOLD}Panel -> Add New Items...${NC}"
+echo -e "  3. Search for ${CYAN}Generic Monitor${NC} and click ${BOLD}Add${NC}."
+echo -e "  4. Right-click on the new plugin in your panel and select ${BOLD}Properties${NC}."
+echo -e "  5. Configure the following fields:"
+echo -e "     • ${BOLD}Command:${NC} $(pwd)/docker_genmon.sh"
+echo -e "     • ${BOLD}Period (s):${NC} 10"
+echo -e "     • ${BOLD}Label:${NC} Uncheck / Disable (to show only the icon)"
+echo -e "  6. Click ${BOLD}Close${NC}."
 echo -e "${BLUE}========================================================${NC}\n"
 
 # Verify if we should run a test
-echo -e "${CYAN}[4/4] ¿Quieres probar el Dashboard interactivo ahora?${NC}"
-read -p "Presiona ENTER para abrir el dashboard de prueba, o Ctrl+C para salir..."
+echo -e "${CYAN}[4/4] Do you want to test the interactive Dashboard now?${NC}"
+read -p "Press ENTER to open the test dashboard, or Ctrl+C to exit..."
 
-echo -e "Lanzando dashboard de prueba..."
+echo -e "Launching test dashboard..."
 ./docker_menu.py
-echo -e "${GREEN}✓ Ejecución de prueba finalizada.${NC}"
+echo -e "${GREEN}✓ Test run complete.${NC}"

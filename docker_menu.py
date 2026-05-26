@@ -56,7 +56,7 @@ class DockerDashboard(Gtk.Window):
         title_label = Gtk.Label(label="Docker Manager")
         title_label.set_xalign(0)
         title_label.get_style_context().add_class("header-title")
-        self.status_label = Gtk.Label(label="Cargando contenedores...")
+        self.status_label = Gtk.Label(label="Loading containers...")
         self.status_label.set_xalign(0)
         self.status_label.get_style_context().add_class("header-subtitle")
         title_vbox.pack_start(title_label, True, True, 0)
@@ -74,7 +74,7 @@ class DockerDashboard(Gtk.Window):
         # 2. Search Box
         self.search_entry = Gtk.SearchEntry()
         self.search_entry.get_style_context().add_class("search-entry")
-        self.search_entry.set_placeholder_text("Filtrar contenedores...")
+        self.search_entry.set_placeholder_text("Filter containers...")
         self.search_entry.connect("search-changed", self.on_search_changed)
         self.main_box.pack_start(self.search_entry, False, False, 0)
 
@@ -97,13 +97,13 @@ class DockerDashboard(Gtk.Window):
         self.footer_box.pack_start(self.docker_ver_label, True, True, 0)
 
         # Prune button
-        prune_btn = Gtk.Button(label="Limpiar Sistema")
+        prune_btn = Gtk.Button(label="Clean Up System")
         prune_btn.get_style_context().add_class("footer-btn")
         prune_btn.connect("clicked", self.on_prune_clicked)
         self.footer_box.pack_end(prune_btn, False, False, 0)
 
         # Refresh button
-        refresh_btn = Gtk.Button(label="Actualizar ↻")
+        refresh_btn = Gtk.Button(label="Refresh ↻")
         refresh_btn.get_style_context().add_class("footer-btn")
         refresh_btn.connect("clicked", lambda w: self.refresh_data())
         self.footer_box.pack_end(refresh_btn, False, False, 0)
@@ -182,14 +182,14 @@ class DockerDashboard(Gtk.Window):
             try:
                 res = subprocess.run(["docker", "version", "--format", "{{.Server.Version}}"], 
                                      capture_output=True, text=True)
-                version = res.stdout.strip() if res.returncode == 0 else "Desconocido"
+                version = res.stdout.strip() if res.returncode == 0 else "Unknown"
                 GLib.idle_add(self.docker_ver_label.set_text, f"Docker v{version}")
             except Exception:
-                GLib.idle_add(self.docker_ver_label.set_text, "Docker no corriendo")
+                GLib.idle_add(self.docker_ver_label.set_text, "Docker not running")
         threading.Thread(target=worker, daemon=True).start()
 
     def refresh_data(self):
-        self.status_label.set_text("Buscando contenedores...")
+        self.status_label.set_text("Fetching containers...")
         
         def worker():
             containers = self.get_containers()
@@ -313,10 +313,10 @@ class DockerDashboard(Gtk.Window):
             filtered.append(c)
 
         # Update status header
-        self.status_label.set_text(f"{running_count} activos / {len(containers)} totales")
+        self.status_label.set_text(f"{running_count} running / {len(containers)} total")
 
         if not filtered:
-            empty_lbl = Gtk.Label(label="No se encontraron contenedores")
+            empty_lbl = Gtk.Label(label="No containers found")
             empty_lbl.set_margin_top(20)
             empty_lbl.set_margin_bottom(20)
             empty_lbl.get_style_context().add_class("header-subtitle")
@@ -355,7 +355,7 @@ class DockerDashboard(Gtk.Window):
         card_vbox.pack_start(top_hbox, True, True, 0)
 
         # Left status badge
-        badge_lbl = Gtk.Label(label="ACTIVO" if state == "running" else "DETENIDO")
+        badge_lbl = Gtk.Label(label="RUNNING" if state == "running" else "STOPPED")
         badge_lbl.get_style_context().add_class("badge")
         badge_lbl.get_style_context().add_class("badge-running" if state == "running" else "badge-stopped")
         badge_lbl.set_valign(Gtk.Align.START)
@@ -392,22 +392,22 @@ class DockerDashboard(Gtk.Window):
         else:
             if state == "running":
                 # Restart Button (view-refresh)
-                restart_btn = make_icon_btn("view-refresh", "Reiniciar contenedor", lambda w, i=cid: self.run_container_action(i, "restart"))
+                restart_btn = make_icon_btn("view-refresh", "Restart container", lambda w, i=cid: self.run_container_action(i, "restart"))
                 restart_btn.get_style_context().add_class("btn-restart")
                 actions_hbox.pack_start(restart_btn, False, False, 0)
 
                 # Stop Button (media-playback-stop)
-                stop_btn = make_icon_btn("media-playback-stop", "Detener contenedor", lambda w, i=cid: self.run_container_action(i, "stop"))
+                stop_btn = make_icon_btn("media-playback-stop", "Stop container", lambda w, i=cid: self.run_container_action(i, "stop"))
                 stop_btn.get_style_context().add_class("btn-stop")
                 actions_hbox.pack_start(stop_btn, False, False, 0)
             else:
                 # Start Button (media-playback-start)
-                start_btn = make_icon_btn("media-playback-start", "Iniciar contenedor", lambda w, i=cid: self.run_container_action(i, "start"))
+                start_btn = make_icon_btn("media-playback-start", "Start container", lambda w, i=cid: self.run_container_action(i, "start"))
                 start_btn.get_style_context().add_class("btn-start")
                 actions_hbox.pack_start(start_btn, False, False, 0)
 
             # Logs toggle Button (utilities-terminal)
-            logs_btn = make_icon_btn("utilities-terminal", "Ver logs", lambda w, i=cid: self.toggle_logs(i))
+            logs_btn = make_icon_btn("utilities-terminal", "View logs", lambda w, i=cid: self.toggle_logs(i))
             actions_hbox.pack_start(logs_btn, False, False, 0)
 
         # Bottom row: URL Port badges
@@ -425,7 +425,7 @@ class DockerDashboard(Gtk.Window):
                 url_btn.set_image(img)
                 url_btn.set_always_show_image(True)
                 url_btn.get_style_context().add_class("port-badge")
-                url_btn.set_tooltip_text(f"Abrir {u['url']} en navegador")
+                url_btn.set_tooltip_text(f"Open {u['url']} in browser")
                 url_btn.connect("clicked", lambda w, target=u['url']: webbrowser.open(target))
                 urls_flow.add(url_btn)
                 
@@ -473,7 +473,7 @@ class DockerDashboard(Gtk.Window):
         if not buffer:
             return
             
-        buffer.set_text("Cargando logs...")
+        buffer.set_text("Loading logs...")
         
         def worker():
             try:
@@ -483,10 +483,10 @@ class DockerDashboard(Gtk.Window):
                 )
                 output = res.stdout if res.returncode == 0 else res.stderr
                 if not output.strip():
-                    output = "(No hay logs disponibles)"
+                    output = "(No logs available)"
                 GLib.idle_add(buffer.set_text, output)
             except Exception as e:
-                GLib.idle_add(buffer.set_text, f"Error al cargar logs: {e}")
+                GLib.idle_add(buffer.set_text, f"Error loading logs: {e}")
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -519,17 +519,17 @@ class DockerDashboard(Gtk.Window):
             flags=0,
             message_type=Gtk.MessageType.WARNING,
             buttons=Gtk.ButtonsType.OK_CANCEL,
-            text="¿Limpiar contenedores inactivos?",
+            text="Clean up stopped containers?",
         )
         dialog.format_secondary_text(
-            "Esto ejecutará 'docker container prune' y eliminará todos los contenedores detenidos. ¿Proceder?"
+            "This will run 'docker container prune' and remove all stopped containers. Proceed?"
         )
         
         response = dialog.run()
         dialog.destroy()
 
         if response == Gtk.ResponseType.OK:
-            self.status_label.set_text("Limpiando sistema...")
+            self.status_label.set_text("Cleaning up...")
             def worker():
                 try:
                     subprocess.run(["docker", "container", "prune", "-f"], capture_output=True)
@@ -546,7 +546,7 @@ if __name__ == "__main__":
         try:
             subprocess.run(["docker", "--version"], capture_output=True, check=True)
         except Exception:
-            print("Error: Docker no está instalado o no disponible en PATH.")
+            print("Error: Docker is not installed or not available in PATH.")
             sys.exit(1)
 
         app = DockerDashboard()

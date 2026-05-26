@@ -29,12 +29,12 @@ if timeout 2 docker ps >/dev/null 2>&1; then
     
     echo "<click>$MENU_EXEC</click>"
     echo "<txtclick>$MENU_EXEC</txtclick>"
-    echo "<tool><b>Docker Activo</b>&#10;Contenedores: $RUNNING_COUNT activos / $TOTAL_COUNT totales&#10;Haga clic para abrir el Dashboard</tool>"
+    echo "<tool><b>Docker Active</b>&#10;Containers: $RUNNING_COUNT running / $TOTAL_COUNT total&#10;Click to open the Dashboard</tool>"
 else
     # Docker daemon is stopped, not responding, or user lacks permissions
     echo "<img>$ICON_OFFLINE</img>"
     echo "<txt> off</txt>"
     echo "<click>$MENU_EXEC</click>"
     echo "<txtclick>$MENU_EXEC</txtclick>"
-    echo "<tool><b>Docker Inactivo</b>&#10;El servicio o socket de Docker no está respondiendo.&#10;Verifica systemctl status docker.&#10;Haga clic para abrir el administrador.</tool>"
+    echo "<tool><b>Docker Inactive</b>&#10;The Docker service or socket is not responding.&#10;Check: systemctl status docker.&#10;Click to open the manager.</tool>"
 fi
