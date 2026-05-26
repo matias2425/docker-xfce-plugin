@@ -6,6 +6,14 @@ Monitor and manage all your Docker containers directly from your taskbar — wit
 
 ---
 
+## 📸 Screenshots
+
+| Panel indicator | Docker Manager dashboard |
+|:---:|:---:|
+| ![XFCE panel icon showing Docker active with 1 running container](screenshots/screenshot_1.png) | ![Docker Manager dashboard with running and stopped containers](screenshots/screenshot_2.png) |
+
+---
+
 ## ✨ Features
 
 - **Live panel indicator** — Shows a Docker icon with a running container count. Turns to a greyed-out "off" state when the Docker daemon is not reachable.
