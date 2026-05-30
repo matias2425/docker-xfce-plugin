@@ -4,8 +4,10 @@
 # XFCE Generic Monitor Script for Docker
 # -----------------------------------------------------------------------------
 
-# Absolute path to this plugin's directory
-DIR="/home/matias/Develop/Projects/docker-xfce-plugin"
+# Resolve the directory where this script lives, regardless of CWD or how it was invoked.
+# xfce4-genmon-plugin calls scripts by their absolute path but does not change CWD,
+# so relative paths would break. BASH_SOURCE[0] always holds the script's own path.
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ICON_ONLINE="$DIR/docker_icon.svg"
 ICON_OFFLINE="$DIR/docker_icon_offline.svg"

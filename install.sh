@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Resolve the directory where this script lives so it can be run from any CWD.
+# e.g.: bash /some/other/path/install.sh  — will still find the plugin files.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # -----------------------------------------------------------------------------
 # Docker XFCE Panel Plugin - Installer & Configuration Guide
 # -----------------------------------------------------------------------------
@@ -53,7 +57,7 @@ echo ""
 
 # 3. Configure file permissions
 echo -e "${CYAN}[3/4] Setting execution permissions...${NC}"
-chmod +x docker_genmon.sh docker_menu.py
+chmod +x "$SCRIPT_DIR/docker_genmon.sh" "$SCRIPT_DIR/docker_menu.py"
 echo -e "  ${GREEN}✓ docker_genmon.sh and docker_menu.py set as executable.${NC}"
 echo ""
 
@@ -67,7 +71,7 @@ echo -e "  2. Select ${BOLD}Panel -> Add New Items...${NC}"
 echo -e "  3. Search for ${CYAN}Generic Monitor${NC} and click ${BOLD}Add${NC}."
 echo -e "  4. Right-click on the new plugin in your panel and select ${BOLD}Properties${NC}."
 echo -e "  5. Configure the following fields:"
-echo -e "     • ${BOLD}Command:${NC} $(pwd)/docker_genmon.sh"
+echo -e "     • ${BOLD}Command:${NC} $SCRIPT_DIR/docker_genmon.sh"
 echo -e "     • ${BOLD}Period (s):${NC} 10"
 echo -e "     • ${BOLD}Label:${NC} Uncheck / Disable (to show only the icon)"
 echo -e "  6. Click ${BOLD}Close${NC}."
@@ -78,5 +82,5 @@ echo -e "${CYAN}[4/4] Do you want to test the interactive Dashboard now?${NC}"
 read -p "Press ENTER to open the test dashboard, or Ctrl+C to exit..."
 
 echo -e "Launching test dashboard..."
-./docker_menu.py
+"$SCRIPT_DIR/docker_menu.py"
 echo -e "${GREEN}✓ Test run complete.${NC}"
